@@ -1,0 +1,15 @@
+{
+  "name": "chien-truong-online",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Chiến Trường: chơi nhiều người theo lockstep tất định",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node test/determinism.test.js && node test/features.test.js && node test/net.test.js",
+    "test:e2e": "python3 test/e2e.py"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}

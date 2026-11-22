@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>Chiến Trường Online</title>
+<style>
+html,body{margin:0;height:100%;background:#173a5e;font:14px system-ui,sans-serif;color:#eef1f4;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none}
+#lobby{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:16px;box-sizing:border-box}
+.card{background:rgba(20,24,30,.94);border:1px solid #3a424c;border-radius:12px;padding:18px;width:100%;max-width:340px;box-sizing:border-box}
+input{width:100%;box-sizing:border-box;padding:9px;margin:4px 0;border-radius:8px;border:1px solid #3a424c;background:#0e1218;color:#eef1f4;font:inherit}
+button{font:inherit;padding:9px 12px;margin:4px 0;border-radius:8px;border:1px solid #3a424c;background:#1d2530;color:#eef1f4;cursor:pointer;width:100%}
+button:active{background:#2a3644}
+#game{position:absolute;inset:0;display:none}
+#cv{position:absolute;inset:0;width:100%;height:100%}
+#hud{position:absolute;left:8px;top:8px;background:rgba(20,24,30,.9);border:1px solid #3a424c;border-radius:10px;padding:8px 10px;line-height:1.5;min-width:170px}
+#tools{position:absolute;right:8px;top:8px;display:flex;flex-direction:column;gap:6px}
+#tools button{width:auto;margin:0;padding:8px 10px;font-size:13px;background:rgba(20,24,30,.9)}
+#tools button.on{outline:2px solid #2f6bff}
+#prod{position:absolute;left:8px;bottom:8px;right:200px;display:none;background:rgba(20,24,30,.92);border:1px solid #3a424c;border-radius:10px;padding:8px}
+#prod .title{margin-bottom:6px;opacity:.9}
+#prod button{width:auto;margin:3px 4px 3px 0;padding:7px 9px;font-size:13px}
+#msg{position:absolute;inset:0;background:rgba(10,14,20,.8);display:none;align-items:center;justify-content:center;flex-direction:column;gap:10px;font-size:22px}
+#msg button{width:auto;font-size:16px;padding:10px 18px}
+#status{position:absolute;right:8px;bottom:8px;opacity:.6;font-size:12px}
+#unitbar{position:absolute;left:50%;top:8px;transform:translateX(-50%);display:none;gap:6px;flex-wrap:wrap;justify-content:center;max-width:70%}
+#unitbar button{width:auto;margin:0;padding:7px 10px;font-size:13px;background:rgba(20,24,30,.9)}
+#mini{position:absolute;right:8px;bottom:8px;width:180px;height:108px;border:1px solid #3a424c;border-radius:6px;background:#0e1218;cursor:pointer}
+.err{color:#ff8080;min-height:18px;margin-top:6px}
+.pl{margin:4px 0}
+</style>
+</head>
+<body>
+<div id="lobby">
+  <div class="card">
+    <h2 style="margin:0 0 10px">Chiến Trường</h2>
+    <input id="name" placeholder="Tên của bạn" maxlength="16">
+    <button id="create">Tạo phòng mới</button>
+    <input id="code" placeholder="Mã phòng" maxlength="5" style="text-transform:uppercase">
+    <button id="join">Vào phòng</button>
+    <div id="room" style="display:none;margin-top:12px">
+      <div>Mã phòng: <b id="roomcode"></b> <span style="opacity:.6;font-size:12px">(gửi mã này cho bạn bè)</span></div>
+      <div id="players" style="margin:8px 0"></div>
+      <button id="start">Bắt đầu trận</button>
+      <div style="opacity:.7;font-size:12px">Chỗ trống sẽ do AI điền. Có thể chơi một mình với AI.</div>
+    </div>
+    <div class="err" id="err"></div>
+  </div>
+</div>
+
+<div id="game">
+  <canvas id="cv"></canvas>
+  <div id="hud"></div>
+  <div id="tools">
+    <button id="towerbtn">Tháp canh: 30 vàng</button>
+    <button id="boxbtn">Chọn vùng: tắt</button>
+    <button id="clear">Bỏ chọn</button>
+  </div>
+  <div id="unitbar">
+    <button data-f="1">Phalanx</button>
+    <button data-f="2">Hình nêm</button>
+    <button data-f="3">Vuông rỗng</button>
+    <button id="disband">Tách đội</button>
+    <button id="atk">Tấn công</button>
+    <button id="def">Phòng thủ</button>
+  </div>
+  <div id="prod"></div>
+  <canvas id="mini" width="180" height="108"></canvas>
+  <div id="msg"><div id="msgtext"></div><button id="back">Về sảnh</button></div>
+</div>
+<div id="status"></div>
+
+<script src="/core.js"></script>
+<script src="/lockstep.js"></script>
+<script src="/client.js"></script>
+</body>
+</html>
